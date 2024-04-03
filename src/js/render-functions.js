@@ -22,7 +22,6 @@ function hideLoader() {
 
 export function displayImages(images) {
   showLoader(); // Показуємо індикатор завантаження перед відображенням зображень
-
   const galleryElement = document.getElementById('gallery');
   galleryElement.innerHTML = ''; // Очищаємо галерею перед відображенням нових зображень
 
@@ -39,6 +38,7 @@ export function displayImages(images) {
   } else {
     instance.refresh(); // Якщо екземпляр вже існує, оновлюємо його
   }
+  
 }
 
 // Створення картки зображення
@@ -72,3 +72,5 @@ function createSimpleLightbox() {
     captionsData: 'alt', // підпис зображення
   });
 }
+
+
