@@ -36,6 +36,20 @@
 .form-control:focus {
   border-color: #4e75ff; /* Колір рамки при активному стані */
 }
+.load-more-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: auto;
+  height: 40px;
+  background: #4e75ff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
 
 .btn {
   border: none;

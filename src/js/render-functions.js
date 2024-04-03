@@ -23,7 +23,6 @@ function hideLoader() {
 export function displayImages(images) {
   showLoader(); // Показуємо індикатор завантаження перед відображенням зображень
   const galleryElement = document.getElementById('gallery');
-  galleryElement.innerHTML = ''; // Очищаємо галерею перед відображенням нових зображень
 
   images.forEach(image => {
     const imageCard = createImageCard(image);
@@ -31,6 +30,24 @@ export function displayImages(images) {
   });
 
   hideLoader(); // Приховуємо індикатор завантаження після відображення зображень
+    // Плавне прокручування сторінки
+  smoothScrollBy(galleryElement);
+}
+
+// Функція для плавного прокручування сторінки на дві висоти карточки галереї
+function smoothScrollBy(element) {
+  const cardHeight = getCardHeight(element.firstElementChild);
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
+}
+
+// Функція для отримання висоти карточки галереї
+function getCardHeight(cardElement) {
+  const cardRect = cardElement.getBoundingClientRect();
+  return cardRect.height;
+}
 
   // Оновлюємо галерею, тільки якщо були додані нові картки зображень
   if (!instance) {
@@ -39,10 +56,10 @@ export function displayImages(images) {
     instance.refresh(); // Якщо екземпляр вже існує, оновлюємо його
   }
   
-}
+
 
 // Створення картки зображення
-function createImageCard(image) {
+export function createImageCard(image) {
   return `<div class="card">
   <div class="image-container">
    <a href="${image.largeImageURL}" data-lightbox="image">

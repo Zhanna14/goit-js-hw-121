@@ -2,11 +2,10 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-
 let page = 1;
 const perPage = 15; // Кількість зображень на сторінці
 
-export async function searchImages(keyword) {
+export async function searchImages(keyword, page) {
   try {
     const apiKey = '43190537-4b40a622c8cb8590492e33b18';
     const url = `https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(
@@ -30,4 +29,3 @@ export async function searchImages(keyword) {
     throw error;
   }
 }
-
