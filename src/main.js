@@ -7,7 +7,7 @@ import { displayImages } from './js/render-functions.js';
 
 let page = 1;
 const perPage = 15;
-const totalPages = Math.ceil(100 / perPage);
+const totalHits = Math.ceil(100 / perPage);
 
 
 
@@ -18,6 +18,7 @@ const gallery = document.getElementById('gallery'); // Отримання еле
 const loadMoreBtn = document.createElement('button'); // Створення кнопки "Load more"
 loadMoreBtn.textContent = 'Load more';
 loadMoreBtn.classList.add('load-more-btn');
+loadMoreBtn.style.display = 'none'; // Початково ховаємо кнопку
 gallery.insertAdjacentElement('afterend', loadMoreBtn);
 
 // Обробник події для кнопки "Load more"
@@ -33,9 +34,10 @@ async function loadMoreImages() {
     page += 1;
 
     // Перевірка, чи дійшли до кінця колекції
-    if (page > totalPages) {
+    if (page > totalHits) {
+      gallery.innerHTML = '';
       loadMoreBtn.style.display = 'none';
-      iziToast.info({
+      iziToast.error({
         title: 'End of Search Results',
         message: "We're sorry, but you've reached the end of search results.",
         position: 'topRight',
@@ -62,7 +64,6 @@ form.addEventListener('submit', async event => {
 
   try {
     gallery.innerHTML = ''; // Очищення галереї перед новим пошуком
-    page = 1; // Скидання номера сторінки на початкове значення
     const images = await searchImages(keyword, page); // Виклик функції пошуку з передачею сторінки
     if (images.length > 0) {
       displayImages(images); // Відображення отриманих зображень
@@ -71,6 +72,8 @@ form.addEventListener('submit', async event => {
     }
   } catch (error) {
     console.error('Error searching images:', error);
+    gallery.innerHTML = ''; // Очищення галереї в разі помилки
+    loadMoreBtn.style.display = 'none'; // Приховуємо кнопку "Завантажити більше" в разі помилки
   }
 });
 
